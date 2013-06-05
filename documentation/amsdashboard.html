@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="LibreOffice 4.0.2.2 (Linux)">
+	<META NAME="AUTHOR" CONTENT="Eliran ">
+	<META NAME="CREATED" CONTENT="20130502;14475000">
+	<META NAME="CHANGEDBY" CONTENT="Eliran ">
+	<META NAME="CHANGED" CONTENT="20130509;19471400">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 0.79in }
+		P { margin-bottom: 0.08in }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P STYLE="margin-bottom: 0in"><FONT SIZE=6>AMS Dashboard</FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT SIZE=5>1. Feature Overview</FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">AMS Dashboard is a php web application
+which shows all data that has been logged by the AMS Android Library.
+The data used in the AMS Dashboard is pulled from the backend
+database.</P>
+<P STYLE="margin-bottom: 0in">The data will be displayed using tables
+and graphs depending on which is more user friendly.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">Goals:</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Display data in a relevant, user
+	friendly way</P>
+	<LI><P STYLE="margin-bottom: 0in">Include the ability to create
+	favorite graphs</P>
+	<LI><P STYLE="margin-bottom: 0in">Dashboard will have a left
+	navigation menu</P>
+	<LI><P STYLE="margin-bottom: 0in">Dashboard should be able to
+	connect via local network if the user specifies</P>
+	<P STYLE="margin-bottom: 0in"></P>
+</UL>
+<P STYLE="margin-bottom: 0in"><FONT SIZE=5>2. Design</FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">2.1 Requirements</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in"><SPAN STYLE="font-weight: normal">Configure
+	the </SPAN><SPAN STYLE="font-weight: normal">applications that are
+	shown if AMS Dashboard is used by more than one app</SPAN></P>
+</UL>
+<P STYLE="margin-bottom: 0in; font-weight: normal"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">2.2 Types of Graphs</P>
+<P STYLE="margin-bottom: 0in">	The left navigation of the AMS
+Dashboard will have the following graphs</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Audience Graph</P>
+	<UL>
+		<LI><P STYLE="margin-bottom: 0in">Demographics (if available)</P>
+		<LI><P STYLE="margin-bottom: 0in">Devices</P>
+		<UL>
+			<LI><P STYLE="margin-bottom: 0in">Android Version</P>
+			<LI><P STYLE="margin-bottom: 0in">Phone Type</P>
+		</UL>
+		<LI><P STYLE="margin-bottom: 0in"> usersLocation of users</P>
+	</UL>
+	<LI><P STYLE="margin-bottom: 0in">Event Tables</P>
+	<UL>
+		<LI><P STYLE="margin-bottom: 0in">Success</P>
+		<LI><P STYLE="margin-bottom: 0in">Error</P>
+		<LI><P STYLE="margin-bottom: 0in">Warning</P>
+		<LI><P STYLE="margin-bottom: 0in">Info</P>
+		<LI><P STYLE="margin-bottom: 0in">Filters</P>
+		<UL>
+			<LI><P STYLE="margin-bottom: 0in">Date (Year, month, day, date
+			range)</P>
+			<LI><P STYLE="margin-bottom: 0in">By string of the description –
+			Possible requirement search by regex</P>
+		</UL>
+	</UL>
+	<LI><P STYLE="margin-bottom: 0in">Usage Data</P>
+	<UL>
+		<LI><P STYLE="margin-bottom: 0in">User path</P>
+		<LI><P STYLE="margin-bottom: 0in">Time of use</P>
+		<LI><P STYLE="margin-bottom: 0in">User Retention</P>
+		<LI><P STYLE="margin-bottom: 0in">Total Users</P>
+	</UL>
+</UL>
+<P STYLE="margin-bottom: 0in">2.3 Favorites</P>
+<P STYLE="margin-bottom: 0in">	The user should be able to choose
+custom graphs that are relevant to them</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">2.4 Applications</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Add an application</P>
+	<UL>
+		<LI><P STYLE="margin-bottom: 0in">Application Key</P>
+	</UL>
+	<LI><P STYLE="margin-bottom: 0in">Delete an application</P>
+</UL>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<UL>
+	<P STYLE="margin-bottom: 0in">2.5 Alerts (Future feature)</P>
+</UL>
+<P STYLE="margin-bottom: 0in">	Set up custom alerts for graphs</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">By phone number or email</P>
+</UL>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">2.6 User Accounts (Future feature)</P>
+<P STYLE="margin-bottom: 0in">	Each customer is given a default admin
+account and that account can create other accounts and specify
+different apps per user</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Page for permissions by
+	application</P>
+	<LI><P STYLE="margin-bottom: 0in">Page for permissions by user</P>
+	<LI><P STYLE="margin-bottom: 0in">User account information page</P>
+	<UL>
+		<LI><P STYLE="margin-bottom: 0in">Reset password</P>
+		<LI><P STYLE="margin-bottom: 0in">change email</P>
+	</UL>
+</UL>
+</BODY>
+</HTML>
