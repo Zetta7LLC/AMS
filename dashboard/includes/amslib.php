@@ -111,6 +111,11 @@ function showSQLError($errorMsg, $query)
 	#echo "Whoops... Unexpected error. <br/> ErrorMsg: [" . $errorMsg . "] <br/> URI: " . $url . "<br/> SERVER IP: " . $serverIP . " <br/> CLIENT IP: " . $clientIP . "<br/> Query: " . $query;
 }
 
+//Replaces single tick with ` for db complience
+function replaceSingletick($subject){
+	return str_replace("'", "`",$subject);
+}
+
 //format the graph data, the first column has quotes around it and the second is a number
 function ConvertToJSArray($results)
 {
@@ -141,7 +146,7 @@ function getApplicationInfo()
 
 	   $paramArr = array($appKey);
 
-	   $results = executePreparedSelect("amsUser", "db2", $sqlGetAppInfo, $paramArr);
+	   $results = executePreparedSelect($sqlGetAppInfo, $paramArr);
 	}
 	else
 	{
@@ -149,13 +154,25 @@ function getApplicationInfo()
 										 FROM application 
 										 ORDER BY CASE WHEN obsolete = 0 THEN 0 ELSE 1 END LIMIT 1";
 				
-		$results = executePreparedSelect("amsUser", "db2", $sqlGetAppInfo, null);
+		$results = executePreparedSelect($sqlGetAppInfo, null);
 
 	}
 
 	setcookie('amsApplication', $results[0]["appKey"], time() + (86400 * 10), '/', '', false, false);
 
 	return array(0 => $results[0]["appKey"], 1 => $results[0]["appName"]);
+}
+
+function displayGraphData($results)
+{
+	if(count($results) == 0)
+	{
+		return "var callGraphFunction = false;$(document).ready(function(){document.getElementById('mainGraph').innerHTML = 'There appears to be no data available at this time.';});";
+	}
+	else
+	{	
+		return "var callGraphFunction = true;var graphData = " . ConvertToJSArray($results) . ";";
+	}
 }
 
 ?>
