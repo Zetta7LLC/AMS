@@ -1,0 +1,69 @@
+/*
+Copyright 2013 Zetta7 LLC - Bellevue, WA
+
+This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
+
+    AMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    any later version.
+
+    AMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with AMS.  If not, see <http://www.gnu.org/licenses/>.
+*/
+body{margin:0;overflow-y:scroll;}
+#main{color:#474a59;font-family:Gisha;}
+.right-top{ float:left;border:1px solid #d7dce4; padding:10px; width:315px; background:rgba(255, 255, 255, 0.5);}
+
+.right-top span{ text-align:justify;  font-size:12px; color:#888888;}
+.nav{float:left;font-size:12pt;margin-top:40px;}
+.des {width:600px;line-height:2em;font-size:14pt;color:#474a59;float:left;}
+.demo-area{ float:left;margin-left:16px; margin-top:10px;margin-bottom:20px;}
+.footer-area-outer{ width:100%; background:#474a59; padding:10px 0px; float:left; }
+.footer-inner{ width:1024px; margin:0px auto;}
+.footer-inner-left { width:500px; float:left; color:#fff; padding:6px 0px;}
+.footer-inner-left a{ font-size:12px; border-right:1px solid #fff; float:left; color:#fff; padding:0px 20px; text-decoration:none;}
+.footer-inner-left a:hover{ font-size:12px; border-right:1px solid #fff; float:left; color:#ffd67a; padding:0px 20px; text-decoration:none;}
+
+.footer-inner-right { width:366px; float:right; color:#fff; padding:6px 0px; font-size:12px; text-align:right;}
+
+table.gradienttable {
+	font-family: verdana,arial,sans-serif;
+	color:#333333;
+	border-width: 1px;
+	border-color: #999999;
+	border-collapse: collapse;
+	width:99%;
+}
+table.gradienttable th {
+	padding: 0px;
+	background-color:#CCC;
+	border: 1px solid #999999;
+	color:#474a59;
+}
+table.gradienttable td {
+	background-color:#EFEFEF;
+	padding: 0px;
+	border: 1px solid #999999;
+}
+table.gradienttable th p{
+	margin:0px;
+	padding:8px;
+	border-top: 1px solid #eefafc;
+	border-bottom:0px;
+	border-left: 1px solid #eefafc;
+	border-right:0px;
+}
+table.gradienttable td p{
+	margin:0px;
+	padding:8px;
+	border-top: 1px solid #fcfdec;
+	border-bottom:0px;
+	border-left: 1px solid #fcfdec;;
+	border-right:0px;
+}
