@@ -16,4 +16,6 @@ This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
     You should have received a copy of the GNU General Public License
     along with AMS.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<div id="mainGraph" style="height:400px;width:800px;float:left;margin-top: 60px;margin-left: 10px;"></div>
+		</div>
+	</body>
+</html>

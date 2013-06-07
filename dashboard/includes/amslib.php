@@ -175,4 +175,36 @@ function displayGraphData($results)
 	}
 }
 
+//Validates the the querystring has a number
+function getQueryDecimal($qString){
+	if(is_null($qString)){ //null
+		return 0;
+	}
+	else if(is_float($qString)){ //a double
+		return $qString;
+	}
+	else{ //a string
+		//$ptn = "/[^0-9.]*/";
+		//return  preg_replace($ptn, "", $qString);
+		$strReturn = 0.0; //cast as float;
+		$strReturn += $qString;	
+		return $strReturn;
+	}
+}
+//Validates that input is either an integer or decimal
+function getQueryNum($qString){
+	if(is_null($qString)){ //null
+		return 0;
+	}
+	else if(is_int($qString)){ //an intereger
+		return $qString;
+	}
+	else{ //its a string
+		$qString = getQueryDecimal($qString);
+		$strReturn = 0;
+		$strReturn += $qString;
+		return $strReturn;
+	}
+}
+
 ?>

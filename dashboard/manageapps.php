@@ -134,4 +134,5 @@ This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
 </script>
 <?php
 require_once("includes/mainGraph.php");
+require_once("includes/footer.php");
 ?>
