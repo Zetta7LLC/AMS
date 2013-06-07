@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="LibreOffice 4.0.2.2 (Linux)">
+	<META NAME="CREATED" CONTENT="20130425;23080000">
+	<META NAME="CHANGEDBY" CONTENT="Dmitry Ryzhkov">
+	<META NAME="CHANGED" CONTENT="20130509;3030000">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 0.79in }
+		P { margin-bottom: 0.08in }
+		PRE.ctl { font-family: "Lohit Hindi" }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P STYLE="margin-bottom: 0in; page-break-before: always"><FONT SIZE=6>AMS
+Android Library</FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT SIZE=5>1. Feature Overview</FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">AMS Android Library is a Java library
+that enable android application to log events on a server.</P>
+<P STYLE="margin-bottom: 0in">A client application will make calls
+using public functions defined in the library and pass all required
+parameters. The library will then make asynchronous web request to a
+remote server and send properly formatted data.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">Goals:</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Provide functionality to
+	programmatically send requests to a remote server.</P>
+	<LI><P STYLE="margin-bottom: 0in">Provide support to log all
+	necessary information.</P>
+	<LI><P STYLE="margin-bottom: 0in">Library must require minimum
+	resource and permissions.</P>
+	<LI><P STYLE="margin-bottom: 0in">Library must not significantly
+	impact application performance.</P>
+</UL>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">Non-goals:</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Client application should not be
+	limited to what kind of information it can log</P>
+	<LI><P STYLE="margin-bottom: 0in">Library should only require access
+	to Internet</P>
+	<LI><P STYLE="margin-bottom: 0in">Library shouldn't require client
+	to wait for return</P>
+</UL>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT SIZE=5>2. Design</FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">2.1 Requirements</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">The following should be included
+	in client's manifest file to enable the library to interact with
+	Internet devices</P>
+</UL>
+<PRE CLASS="western"><FONT COLOR="#333333"> </FONT><FONT COLOR="#333333">	</FONT><FONT COLOR="#000080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">&lt;uses-permission</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt"> </FONT></FONT></FONT><FONT COLOR="#008080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">android:name=</FONT></FONT></FONT><FONT COLOR="#bb8844"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">&quot;android.permission.ACCESS_NETWORK_STATE&quot;</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt"> </FONT></FONT></FONT><FONT COLOR="#000080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">/&gt;</FONT></FONT></FONT>
+<FONT COLOR="#333333"> </FONT><FONT COLOR="#333333">	</FONT><FONT COLOR="#000080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">&lt;uses-permission</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt"> </FONT></FONT></FONT><FONT COLOR="#008080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">android:name=</FONT></FONT></FONT><FONT COLOR="#bb8844"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">&quot;android.permission.ACCESS_WIFI_STATE&quot;</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt"> </FONT></FONT></FONT><FONT COLOR="#000080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">/&gt;</FONT></FONT></FONT>
+<FONT COLOR="#333333"> </FONT><FONT COLOR="#333333">	</FONT><FONT COLOR="#000080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">&lt;uses-permission</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt"> </FONT></FONT></FONT><FONT COLOR="#008080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">android:name=</FONT></FONT></FONT><FONT COLOR="#bb8844"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">&quot;android.permission.INTERNET&quot;</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt"> </FONT></FONT></FONT><FONT COLOR="#000080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">/&gt;</FONT></FONT></FONT></PRE>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">The REMOTE_SERVER_URL variable
+	should be set.</P>
+	<LI><P STYLE="margin-bottom: 0in">Each logging request should
+	specify what time of event is being created</P>
+	<UL>
+		<LI><P STYLE="margin-bottom: 0in"><FONT COLOR="#004080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">public</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">
+		</FONT></FONT></FONT><FONT COLOR="#004080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">final</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">
+		</FONT></FONT></FONT><FONT COLOR="#445588"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">int</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">
+		SUCCESS = </FONT></FONT></FONT><FONT COLOR="#009999"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">1</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">;</FONT></FONT></FONT></P>
+		<LI><P STYLE="margin-bottom: 0in"><A NAME="cl-147"></A><FONT COLOR="#004080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">public</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">
+		</FONT></FONT></FONT><FONT COLOR="#004080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">final</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">
+		</FONT></FONT></FONT><FONT COLOR="#445588"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">int</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">
+		ERROR = </FONT></FONT></FONT><FONT COLOR="#009999"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">2</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">;</FONT></FONT></FONT></P>
+		<LI><P STYLE="margin-bottom: 0in"><FONT COLOR="#004080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">public</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">
+		</FONT></FONT></FONT><FONT COLOR="#004080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">fina</FONT></FONT></FONT><FONT COLOR="#004080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">l</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">
+		</FONT></FONT></FONT><FONT COLOR="#445588"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">int</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">
+		WARNING = </FONT></FONT></FONT><FONT COLOR="#009999"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">3</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">;</FONT></FONT></FONT></P>
+		<LI><P STYLE="margin-bottom: 0in"><FONT COLOR="#004080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">public</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">
+		</FONT></FONT></FONT><FONT COLOR="#004080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">final</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">
+		</FONT></FONT></FONT><FONT COLOR="#445588"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">int</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">
+		INFO = </FONT></FONT></FONT><FONT COLOR="#009999"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">4</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">;</FONT></FONT></FONT></P>
+	</UL>
+</UL>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">2.2 Public Functions</P>
+<P STYLE="margin-bottom: 0in">	The library will allow client
+application to interact with the following functions:</P>
+<UL>
+	<LI><PRE CLASS="western"><FONT COLOR="#004080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">public</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt"> </FONT></FONT></FONT><FONT COLOR="#990000"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">AMSLibrary</FONT></FONT></FONT></PRE>
+	<UL>
+		<LI><PRE CLASS="western"><FONT COLOR="#990000"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">Constructor</FONT></FONT></FONT></PRE>
+	</UL>
+	<LI><PRE CLASS="western"><FONT COLOR="#004080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">public</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt"> </FONT></FONT></FONT><FONT COLOR="#445588"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">void</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt"> </FONT></FONT></FONT><FONT COLOR="#990000"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">logActivity</FONT></FONT></FONT></PRE>
+	<UL>
+		<LI><PRE CLASS="western"><FONT COLOR="#990000"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">Logs an event activity</FONT></FONT></FONT></PRE>
+	</UL>
+	<LI><PRE CLASS="western"><FONT COLOR="#004080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">public</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt"> </FONT></FONT></FONT><FONT COLOR="#445588"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">void</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt"> </FONT></FONT></FONT><FONT COLOR="#990000"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">AddActivity</FONT></FONT></FONT></PRE>
+	<UL>
+		<LI><PRE CLASS="western"><FONT COLOR="#990000"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">Adds event to an active queue</FONT></FONT></FONT></PRE>
+	</UL>
+	<LI><PRE CLASS="western"><FONT COLOR="#004080"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">public</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt"> </FONT></FONT></FONT><FONT COLOR="#445588"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">void</FONT></FONT></FONT><FONT COLOR="#333333"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt"> </FONT></FONT></FONT><FONT COLOR="#990000"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">logAllActivities</FONT></FONT></FONT></PRE>
+	<UL>
+		<LI><PRE CLASS="western"><FONT COLOR="#990000"><FONT FACE="Bitstream Vera Sans Mono"><FONT SIZE=2 STYLE="font-size: 9pt">Logs the whole queue</FONT></FONT></FONT></PRE>
+	</UL>
+</UL>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">2.3 Log Types</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">The Library will allow user to choose
+from 4 different kinds of events</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Success</P>
+	<LI><P STYLE="margin-bottom: 0in">Error</P>
+	<LI><P STYLE="margin-bottom: 0in">Warning</P>
+	<LI><P STYLE="margin-bottom: 0in">Info</P>
+</UL>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">2.4 Get Configuration From AMS WS</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">When the AMS Library first launched, it
+should call the web service and get a list of configurations. The
+most important feature is to be able to remotely enable and disable
+web requests to the server.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT SIZE=5>3. Instruction</FONT></P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Make sure your android manifest
+	file has correct permissions. (see section 2.1)</P>
+	<LI><P STYLE="margin-bottom: 0in">Initialize AMS library</P>
+	<UL>
+		<LI><P STYLE="margin-bottom: 0in"><FONT SIZE=2>AMSLibrary myAMS =
+		new AMSLibrary(this, &quot;Client_ID&quot;, &quot;SERVER_URL&quot;);</FONT></P>
+	</UL>
+	<LI><P STYLE="margin-bottom: 0in">Initialize an application activity
+	and type objects</P>
+	<UL>
+		<LI><P STYLE="margin-bottom: 0in"><FONT SIZE=2>AppActivity
+		myActivity = new AppActivity();</FONT></P>
+		<LI><P STYLE="margin-bottom: 0in"><FONT SIZE=2>AppActivityType
+		myActivityType = myActivityType = new AppActivityType();</FONT></P>
+	</UL>
+	<LI><P STYLE="margin-bottom: 0in">Set properties in application
+	activity</P>
+	<UL>
+		<LI><P STYLE="margin-bottom: 0in"><FONT SIZE=2>myActivity.typeID =
+		myActivityType.SUCCESS;</FONT></P>
+		<LI><P STYLE="margin-bottom: 0in"><FONT SIZE=2>myActivity.message =
+		&quot;Your Message&quot;;</FONT></P>
+		<LI><P STYLE="margin-bottom: 0in"><FONT SIZE=2>myActivity.description
+		= &quot;Activity Description&quot;;</FONT></P>
+		<LI><P STYLE="margin-bottom: 0in"><FONT SIZE=2>myActivity.notes =
+		&quot;Any additional notes you want to add&quot;;</FONT></P>
+	</UL>
+	<LI><P STYLE="margin-bottom: 0in">Log your activity</P>
+	<UL>
+		<LI><P STYLE="margin-bottom: 0in"><FONT SIZE=2>myAMS.logActivity(myActivity);</FONT></P>
+	</UL>
+</UL>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT SIZE=5>4. Unit Testing</FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">In order to perform a full unit testing
+with a maximum code coverage, a mock Android application will be
+created. The goal of this mock application is to utilize AMS Android
+Library and send logging requests to a remote web service.</P>
+</BODY>
+</HTML>

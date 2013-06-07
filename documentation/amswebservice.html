@@ -1,0 +1,464 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="LibreOffice 4.0.2.2 (Linux)">
+	<META NAME="CREATED" CONTENT="20130425;23080000">
+	<META NAME="CHANGEDBY" CONTENT="Eliran ">
+	<META NAME="CHANGED" CONTENT="20130509;19573500">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 0.79in }
+		P { margin-bottom: 0.08in }
+		TD P { margin-bottom: 0in }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P STYLE="margin-bottom: 0in; page-break-before: always"><FONT SIZE=6>AMS
+Web Service</FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT SIZE=5>1. Feature Overview</FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">AMS WS is a PHP based server endpoint
+that receives XML request, processes it and stores data.</P>
+<P STYLE="margin-bottom: 0in">This service is a backbone of AMS and
+it allows client devices to send XML requests which contain data that
+client wants to be logged.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">Goals:</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Provide a server side end point
+	which can receive a properly formatted XML request.</P>
+	<LI><P STYLE="margin-bottom: 0in">Store client's data in a remote
+	database.</P>
+	<LI><P STYLE="margin-bottom: 0in">Provide a reliable and secure
+	connection between web server and a remote database.</P>
+	<LI><P STYLE="margin-bottom: 0in">Do not accept improperly formatted
+	or incomplete requests.</P>
+</UL>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT SIZE=5>2. Design</FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">2.1 Requirements</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">The web service will only accept and
+process XML messages in the following format:</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">	&lt;?xml version=&quot;1.0&quot;
+encoding=&quot;UTF-8&quot;?&gt;</P>
+<P STYLE="margin-bottom: 0in">		&lt;AMSRequest&gt;</P>
+<P STYLE="margin-bottom: 0in">			&lt;AppKey&gt;&lt;/AppKey&gt;</P>
+<P STYLE="margin-bottom: 0in">			&lt;DeviceId&gt;&lt;/DeviceId&gt;</P>
+<P STYLE="margin-bottom: 0in">			&lt;DeviceSDK&gt;&lt;/DeviceSDK&gt;</P>
+<P STYLE="margin-bottom: 0in">			&lt;AppActivity&gt;</P>
+<P STYLE="margin-bottom: 0in">				&lt;TypeId&gt;&lt;/TypeId&gt;</P>
+<P STYLE="margin-bottom: 0in">				&lt;Message&gt;&lt;/Message&gt;</P>
+<P STYLE="margin-bottom: 0in">				&lt;Description&gt;&lt;/Description&gt;</P>
+<P STYLE="margin-bottom: 0in">				&lt;Notes&gt;&lt;/Notes&gt;</P>
+<P STYLE="margin-bottom: 0in">			&lt;/AppActivity&gt;</P>
+<P STYLE="margin-bottom: 0in">		&lt;/AMSRequest&gt;</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">2.2 Response Message</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">The web service will return XML message
+with the status once it's finished. The following are possible
+returns:</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">200 – Success</P>
+	<LI><P STYLE="margin-bottom: 0in">400 – Invalid Request</P>
+	<LI><P STYLE="margin-bottom: 0in">500 – Internal Server Error</P>
+</UL>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">The response XML</P>
+<P STYLE="margin-bottom: 0in">&lt;?xml version=\&quot;1.0\&quot;
+encoding=\&quot;UTF-8\&quot;?&gt;</P>
+<P STYLE="margin-bottom: 0in">	&lt;AMSResponse&gt;</P>
+<P STYLE="margin-bottom: 0in">		&lt;Message&gt;&quot; . $msg .
+&quot;&lt;/Message&gt;</P>
+<P STYLE="margin-bottom: 0in">	&lt;/AMSResponse&gt;</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">2.3 AMS Library Manager</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">When the AMS Library first launched, it
+should call the web service and get a list of configurations. The
+most important feature is to be able to remotely enable and disable
+web requests to the server.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><SPAN STYLE="background: #ffff00">Need
+to add more details on XML request and response.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">2.4 Remote DB Structure – AMSUser
+database</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">Table: activityLog</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<TABLE WIDTH=665 CELLPADDING=1 CELLSPACING=0>
+	<COL WIDTH=131>
+	<COL WIDTH=197>
+	<COL WIDTH=330>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P ALIGN=CENTER><B>Column</B></P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P ALIGN=CENTER><B>Type</B></P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P ALIGN=CENTER><B>Default</B></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P>activityId</P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P>bigint(20)</P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P>requestId</P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P>bigint(20)</P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P>appKey</P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P>varchar(100)</P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P>typeId</P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P>smallint(6)</P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P>0</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P>deviceId</P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P>varchar(128)</P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P>deviceSDK</P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P>varchar(128)</P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P>message</P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P>varchar(5000)</P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P>description</P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P>varchar(5000)</P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P>notes</P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P>varchar(5000)</P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P>createStamp</P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P>timestamp</P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P>CURRENT_TIMESTAMP</P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">Table: activityType</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<TABLE WIDTH=665 CELLPADDING=1 CELLSPACING=0>
+	<COL WIDTH=131>
+	<COL WIDTH=197>
+	<COL WIDTH=330>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P ALIGN=CENTER><B>Column</B></P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P ALIGN=CENTER><B>Type</B></P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P ALIGN=CENTER><B>Default</B></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P>typeId</P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P>smallint(6)</P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P>name</P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P>varchar(30)</P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P><BR>
+			</P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">Table: rawXMLRequest</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<TABLE WIDTH=665 CELLPADDING=1 CELLSPACING=0>
+	<COL WIDTH=131>
+	<COL WIDTH=197>
+	<COL WIDTH=330>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P ALIGN=CENTER><B>Column</B></P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P ALIGN=CENTER><B>Type</B></P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P ALIGN=CENTER><B>Default</B></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P>requestId</P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P>bigint(20)</P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P>rawXML</P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P>text</P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P><BR>
+			</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=131 STYLE="border: none; padding: 0in">
+			<P>createStamp</P>
+		</TD>
+		<TD WIDTH=197 STYLE="border: none; padding: 0in">
+			<P>timestamp</P>
+		</TD>
+		<TD WIDTH=330 STYLE="border: none; padding: 0in">
+			<P>CURRENT_TIMESTAMP</P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">2.4 Database log entry</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<TABLE WIDTH=665 CELLPADDING=4 CELLSPACING=0>
+	<COL WIDTH=323>
+	<COL WIDTH=323>
+	<TR VALIGN=TOP>
+		<TD WIDTH=323 STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.04in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+			<P ALIGN=CENTER><B>Column Name</B></P>
+		</TD>
+		<TD WIDTH=323 STYLE="border: 1px solid #000000; padding: 0.04in">
+			<P ALIGN=CENTER><B>Type</B></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+			<P>activityId</P>
+		</TD>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0.04in">
+			<P>bigint</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+			<P>requestId</P>
+		</TD>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0.04in">
+			<P>bigint</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+			<P>appKey</P>
+		</TD>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0.04in">
+			<P>varchar(100)</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+			<P>typeId</P>
+		</TD>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0.04in">
+			<P>smallint(6)</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+			<P>deviceId</P>
+		</TD>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0.04in">
+			<P>varchar(128)</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+			<P>deviceSDK</P>
+		</TD>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0.04in">
+			<P>varchar(128)</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+			<P>message</P>
+		</TD>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0.04in">
+			<P>varchar(5000)</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+			<P>description</P>
+		</TD>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0.04in">
+			<P>varchar(5000)</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+			<P>notes</P>
+		</TD>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0.04in">
+			<P>varchar(5000)</P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0in">
+			<P>createStamp</P>
+		</TD>
+		<TD WIDTH=323 STYLE="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0in; padding-bottom: 0.04in; padding-left: 0.04in; padding-right: 0.04in">
+			<P>Timestamp – Current TimeStamp</P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0in"> 
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+</BODY>
+</HTML>
