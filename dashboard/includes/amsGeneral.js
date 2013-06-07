@@ -16,6 +16,22 @@ This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
     You should have received a copy of the GNU General Public License
     along with AMS.  If not, see <http://www.gnu.org/licenses/>.
 */
+function sendAjaxGetRequest(url, callbackfunc){
+	if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}else{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200){
+			callbackfunc(xmlhttp.responseText);
+		}
+	}
+	xmlhttp.open("GET",url,true);
+	xmlhttp.send();
+}
 function createCookie(name, value, days) {
     if (days) {
         var date = new Date();

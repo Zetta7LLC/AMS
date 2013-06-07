@@ -26,9 +26,9 @@ This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
 	require_once("includes/navigation.php");
 ?>
 <div id="infoContainer" style="position:relative;width:780px;float:left;padding-left:10px;padding-top:32px;">
-	<h2>General Information about your app(s)</h2>
+	<h2>General information about your app(s)</h2>
 <?php
-	echo "<h3 style='margin-bottom:0px;'>Number of Applications</h3>";
+	echo "<h3 style='margin-bottom:0px;'>Number of Applications <a href='manageapps.php' style='font-size: 14px;'>(manage)</a></h3>";
 	$sql = "SELECT count(*) as numOfApps FROM application";
 	
 	$results = executePreparedSelect($sql, null);
