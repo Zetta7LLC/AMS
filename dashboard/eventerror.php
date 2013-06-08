@@ -44,7 +44,7 @@ This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
 	require_once("includes/mainGraph.php");
 ?>
 
-<a style="float:left;margin-left:290px;" href="eventspecific.php?eventid=3">See specific errors</a>
+<a style="float:left;margin-left:290px;" href="eventspecific.php?eventid=3">See specific errors events</a>
 
 <?php
 	require_once("includes/footer.php");

@@ -21,7 +21,7 @@ This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
 	require_once("includes/navigation.php");
 ?>
 	<div style="float:left;width:795px;margin-left:7px;margin-top:35px;">
-	<h3 style="float:left;">Specific Event View</h3>
+	<h3 style="float:left;"><?php echo $GLOBALS["appname"]; ?>: Event Viewer</h3>
 	<?php
 		$eventId = getQueryNum($_GET["eventid"]);
 		
@@ -75,7 +75,7 @@ This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
 		}
 
 		/********* Get Event Info **********/
-		$sqlGetEventWarning = "SELECT message, description, notes, count(*) c
+		$sqlGetEventWarning = "SELECT typeId, message, description, notes, count(*) c
 							   FROM `activityLog` 
 							   WHERE " . $whereStatement . "appKey = ? 
 							   GROUP BY message, description, notes 
@@ -85,10 +85,23 @@ This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
 		
 		$results = executePreparedSelect($sqlGetEventWarning, $paramArr);
 		
-		$tableToOutPut = "<table class='gradienttable'><tr><th>Message</th><th>Description</th><th>Notes</th><th>Count</th></tr>";
+		$tableToOutPut = "<table class='gradienttable'><tr><th>Event Type</th><th>Message</th><th>Description</th><th>Notes</th><th>Count</th></tr>";
 		foreach($results as $row)
 		{
-			$tableToOutPut .= "<tr><td>" . $row["message"] . "</td><td>" . $row["description"] . "</td><td>" . $row["notes"] . "</td><td>" . $row["c"] . "</td></tr>";
+			$tableToOutPut .= "<tr><td>";
+			if($row["typeId"] == 1)
+				$tableToOutPut .= "Success";
+			else if ($row["typeId"] == 2) {
+				$tableToOutPut .= "Warning";
+			}
+			else if ($row["typeId"] == 3) {
+				$tableToOutPut .= "Error";
+			}
+			else if ($row["typeId"] == 4) {
+				$tableToOutPut .= "Info";
+			}
+
+			$tableToOutPut .= "</td><td>" . $row["message"] . "</td><td>" . $row["description"] . "</td><td>" . $row["notes"] . "</td><td>" . $row["c"] . "</td></tr>";
 		}
 		$tableToOutPut .= "</table>";
 
