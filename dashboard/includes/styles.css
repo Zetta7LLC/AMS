@@ -47,7 +47,6 @@ table.gradienttable th {
 	color:#474a59;
 }
 table.gradienttable td {
-	background-color:#EFEFEF;
 	padding: 0px;
 	border: 1px solid #999999;
 }
@@ -66,4 +65,10 @@ table.gradienttable td p{
 	border-bottom:0px;
 	border-left: 1px solid #fcfdec;;
 	border-right:0px;
+}
+table.gradienttable tr:nth-child(odd){ 
+	background-color:#eee; 
+}
+table.gradienttable tr:nth-child(even){ 
+	background-color:#fff; 
 }

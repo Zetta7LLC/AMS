@@ -16,22 +16,6 @@ This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
     You should have received a copy of the GNU General Public License
     along with AMS.  If not, see <http://www.gnu.org/licenses/>.
 */
-function sendAjaxGetRequest(url, callbackfunc){
-	if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
-		xmlhttp=new XMLHttpRequest();
-	}else{// code for IE6, IE5
-		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	
-	xmlhttp.onreadystatechange=function()
-	{
-		if (xmlhttp.readyState==4 && xmlhttp.status==200){
-			callbackfunc(xmlhttp.responseText);
-		}
-	}
-	xmlhttp.open("GET",url,true);
-	xmlhttp.send();
-}
 function createCookie(name, value, days) {
     if (days) {
         var date = new Date();
@@ -305,6 +289,31 @@ function lineGraph(target, line1, graphName){
 
 function clearTarget(target){
   document.getElementById(target).innerHTML = "";
+}
+
+/*request.querystring javascript version */
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+/* changeEventType: changes the type of event. used on the event display page. used for a select dropdown.
+Will add the eventid to the url */
+function changeEventType(eventValue)
+{
+    var eventIdQueryString = getParameterByName("eventid");
+    if(eventIdQueryString != "") //has eventid on the querystring
+      window.location.href = window.location.href.replace("eventid=" + eventIdQueryString, "eventid=" + eventValue);
+    else if(window.location.href.indexOf("?") != -1) //has a question mark and does not have eventid on the querystring
+    {
+      window.location.href = window.location.href + "&eventid=" + eventValue;
+    }
+    else //no question mark and no eventId
+    {
+      window.location.href = window.location.href + "?eventid=" + eventValue; 
+    }
 }
 
 /*****PAGE LOAD*****/

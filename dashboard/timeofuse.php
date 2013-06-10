@@ -54,4 +54,5 @@ This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
 <?php
 	require_once("includes/navigation.php");
 	require_once("includes/mainGraph.php");
+	require_once("includes/footer.php");
 ?>		
