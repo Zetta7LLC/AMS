@@ -58,7 +58,7 @@ Part 4 - AMS Android Library
 Additional Information:
 For more information about AMS project such as documentation and screenshots please refer to the AMS/documentation folder.
 
-New Features:
+New Features: <br/>
 	Event Veiwer <br/>
 	Export logs to CVS <br/>
 	App Manager: Add / remove applications <br/>
