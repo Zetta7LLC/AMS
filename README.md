@@ -59,9 +59,10 @@ Additional Information:
 For more information about AMS project such as documentation and screenshots please refer to the AMS/documentation folder.
 
 New Features:
-See specific events that have occured
-Split up files to add a footer.php
-Added a way to add a new application and get the GUID for it
+	Event Veiwer
+	Export logs to CVS
+	App Manager: Add / remove applications
+	
 
 Bug Fixes:
 n/a
