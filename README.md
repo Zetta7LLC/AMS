@@ -52,6 +52,7 @@ Part 4 - AMS Android Library
 	Steps:
 	1. Download AMS/andrlidlib/AMSLibarary.java
 	2. Include it in your Anroid application.
+	3. The AMSLibrary constructer takes string clientId and string endPoint. The clientId is the GUID that is returned when you create a new application in the AMS Dashboard. The endPoint is the URL to the AMS webservice. 
 	Note: see AMS/documentation/amsandroidlibrary.html for details on how to use the library.
 
 Additional Information:
