@@ -59,9 +59,9 @@ Additional Information:
 For more information about AMS project such as documentation and screenshots please refer to the AMS/documentation folder.
 
 New Features:
-	Event Veiwer
-	Export logs to CVS
-	App Manager: Add / remove applications
+	Event Veiwer <br/>
+	Export logs to CVS <br/>
+	App Manager: Add / remove applications <br/>
 	
 
 Bug Fixes:
