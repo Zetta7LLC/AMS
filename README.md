@@ -1,9 +1,9 @@
 ************** READ ME File ******************
 
 File Date 		: 06/04/2013
-File version 	: 1.0
+File version 	: 1.1
 Software		: AMS
-Software Version: Version 1.0
+Software Version: Version 1.1
 
 Description:
 AMS (Application Monitoring Service) is the easiest way to log information about any Android application. This service has the ability to show information about the user or application behavior in a single, compact, and unified system. The service is split up into three sections: AMS Android library, AMS Webservice, and the AMS Dashboard. 
@@ -58,7 +58,9 @@ Additional Information:
 For more information about AMS project such as documentation and screenshots please refer to the AMS/documentation folder.
 
 New Features:
-n/a
+See specific events that have occured
+Split up files to add a footer.php
+Added a way to add a new application and get the GUID for it
 
 Bug Fixes:
 n/a
