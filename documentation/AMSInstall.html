@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="LibreOffice 4.0.2.2 (Linux)">
+	<META NAME="CREATED" CONTENT="20130609;19030700">
+	<META NAME="CHANGED" CONTENT="20130609;19490100">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 0.79in }
+		P { margin-bottom: 0.08in }
+		A:link { so-language: zxx }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P STYLE="margin-bottom: 0in">1. Install LAMP stack</P>
+<P STYLE="margin-bottom: 0in">	&gt;sudo tasksel install lamp-server</P>
+<P STYLE="margin-bottom: 0in">2. Clone git repo</P>
+<P STYLE="margin-bottom: 0in">	&gt;git clone
+https://github.com/Zetta7LLC/AMS.git</P>
+<P STYLE="margin-bottom: 0in"><IMG SRC="AMSInstall_html_md19c124.jpg" NAME="graphics1" ALIGN=LEFT WIDTH=566 HEIGHT=301 BORDER=0>3.
+Create MySQL tables</P>
+<P STYLE="margin-bottom: 0in">	mysql&gt;create database amstestdb;</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">4. Import tables to database using
+scripts/CreateTables.sql</P>
+<P STYLE="margin-bottom: 0in">	$&gt;mysql -u root -p -h localhost
+amstestdb &lt; ~/AMS/scripts/CreateTables.sql </P>
+<P STYLE="margin-bottom: 0in">5. Check your database for structure.</P>
+<P STYLE="margin-bottom: 0in"><IMG SRC="AMSInstall_html_5208f8dd.jpg" NAME="graphics2" ALIGN=LEFT WIDTH=573 HEIGHT=345 BORDER=0><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">6. Delete CreateTables.sql</P>
+<P STYLE="margin-bottom: 0in">	$&gt;rm -rf
+~/AMS/scripts/CreateTables.sql</P>
+<P STYLE="margin-bottom: 0in">7. Move AMS folder to proper folder for
+webserver.</P>
+<P STYLE="margin-bottom: 0in">	$&gt;sudo mv AMS /var/www/</P>
+<P STYLE="margin-bottom: 0in">8. Verify installation of dashboard via
+web browser</P>
+<P STYLE="margin-bottom: 0in">	<A HREF="http://yoursite.com/AMS/dashboard">http://yoursite.com/AMS/dashboard</A></P>
+<P STYLE="margin-bottom: 0in">9. Edit
+AMS/dashboard/includes/amslib.php file to include your MySQL
+connection information.</P>
+<P STYLE="margin-bottom: 0in">	AMS$&gt;sudo vi
+dashboard/includes/amslib.php</P>
+<P STYLE="margin-bottom: 0in"><IMG SRC="AMSInstall_html_352c7caa.jpg" NAME="graphics3" ALIGN=LEFT WIDTH=562 HEIGHT=346 BORDER=0>10.
+Everything should now be running.  You can test this by creating an
+AMS application ID under 'manage' from the dashboard home.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+</BODY>
+</HTML>

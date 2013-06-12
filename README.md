@@ -1,9 +1,9 @@
 ************** READ ME File ******************
 
 File Date 		: 06/04/2013
-File version 	: 1.0
+File version 	: 1.1
 Software		: AMS
-Software Version: Version 1.0
+Software Version: Version 1.1
 
 Description:
 AMS (Application Monitoring Service) is the easiest way to log information about any Android application. This service has the ability to show information about the user or application behavior in a single, compact, and unified system. The service is split up into three sections: AMS Android library, AMS Webservice, and the AMS Dashboard. 
@@ -52,13 +52,17 @@ Part 4 - AMS Android Library
 	Steps:
 	1. Download AMS/andrlidlib/AMSLibarary.java
 	2. Include it in your Anroid application.
+	3. The AMSLibrary constructer takes string clientId and string endPoint. The clientId is the GUID that is returned when you create a new application in the AMS Dashboard. The endPoint is the URL to the AMS webservice. 
 	Note: see AMS/documentation/amsandroidlibrary.html for details on how to use the library.
 
 Additional Information:
 For more information about AMS project such as documentation and screenshots please refer to the AMS/documentation folder.
 
-New Features:
-n/a
+New Features: <br/>
+	Event Veiwer <br/>
+	Export logs to CVS <br/>
+	App Manager: Add / remove applications <br/>
+	
 
 Bug Fixes:
 n/a
