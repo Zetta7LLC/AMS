@@ -25,7 +25,7 @@ This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
 	<?php
 		$eventId = getQueryNum($_GET["eventid"]);
 		
-		echo '<select style="float:right;margin-top:27px;margin-right:8px;" onChange="changeEventType(this.value);">
+		echo '<select style="float:right;margin-top:23px;margin-right:8px;" onChange="changeEventType(this.value);">
 			<option ';
 
 		if($eventId == 0)
@@ -68,6 +68,7 @@ This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
 			</option>
 		</select>';
 
+
 		$whereStatement = "";
 		if($eventId != 0)
 		{
@@ -75,7 +76,7 @@ This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
 		}
 
 		/********* Get Event Info **********/
-		$sqlGetEventWarning = "SELECT typeId, message, description, notes, count(*) c
+		$sqlGetEventWarning = "SELECT typeId, message, description, notes, count(*) count
 							   FROM `activityLog` 
 							   WHERE " . $whereStatement . "appKey = ? 
 							   GROUP BY message, description, notes 
@@ -85,7 +86,9 @@ This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
 		
 		$results = executePreparedSelect($sqlGetEventWarning, $paramArr);
 		
+		echo "<a style='float:right;clear:left;margin-right:9px;font-size:12px;' target=_blank href='downloadcsv.php?eventid=" . $eventId . "'>Download CSV</a>";
 		$tableToOutPut = "<table class='gradienttable'><tr><th>Event Type</th><th>Message</th><th>Description</th><th>Notes</th><th>Count</th></tr>";
+
 		foreach($results as $row)
 		{
 			$tableToOutPut .= "<tr><td>";
@@ -101,7 +104,7 @@ This file is part of AMS (Android Monitoring Service) created by Zetta7 LLC.
 				$tableToOutPut .= "Info";
 			}
 
-			$tableToOutPut .= "</td><td>" . $row["message"] . "</td><td>" . $row["description"] . "</td><td>" . $row["notes"] . "</td><td>" . $row["c"] . "</td></tr>";
+			$tableToOutPut .= "</td><td>" . $row["message"] . "</td><td>" . $row["description"] . "</td><td>" . $row["notes"] . "</td><td>" . $row["count"] . "</td></tr>";
 		}
 		$tableToOutPut .= "</table>";
 
